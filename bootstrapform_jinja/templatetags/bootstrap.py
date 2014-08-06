@@ -59,7 +59,7 @@ def render(element, markup_classes):
     if element_type == 'boundfield':
         add_input_classes(element)
         template = get_template('bootstrapform/field.jinja')
-        context = Context({'field': element, 'classes': markup_classes})
+        context = Context({'field': element, 'form': element.form, 'classes': markup_classes})
     else:
         has_management = getattr(element, 'management_form', None)
         if has_management:
