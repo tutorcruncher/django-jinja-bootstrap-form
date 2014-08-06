@@ -2,9 +2,9 @@ from setuptools import setup, find_packages
 from bootstrapform.meta import VERSION
 
 setup(
-    name='django-bootstrap-form',
+    name='django-jinja-bootstrap-form',
     version=str(VERSION),
-    description="django-bootstrap-form",
+    description="django-jinja-bootstrap-form",
     classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -16,14 +16,15 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
     ],
-    keywords='bootstrap,django',
-    author='tzangms',
-    author_email='tzangms@gmail.com',
-    url='http://github.com/tzangms/django-bootstrap-form',
+    keywords='bootstrap,django,jinja2',
+    author='Samuel Colvin',
+    author_email='s@muelcolvin.com',
+    url='https://github.com/samuelcolvin/django-jinja-bootstrap-form',
     license='BSD',
     test_suite='tests',
     install_requires = [
-        "django>=1.3",
+        "django>=1.4",
+        "django-jinja>=1.0.3",
     ],
     packages=find_packages(),
     include_package_data=True,
