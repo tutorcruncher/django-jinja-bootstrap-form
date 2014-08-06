@@ -1,2 +1,2 @@
-include README.rst
-graft bootstrapform/templates
+include README.md
+graft bootstrapform_jinja/templates
