@@ -4,7 +4,7 @@ from django.template import Context
 from django_jinja import library
 from django.utils.safestring import mark_safe
 
-from bootstrapform import config
+from bootstrapform_jinja import config
 
 @library.filter
 def bootstrap(element):
