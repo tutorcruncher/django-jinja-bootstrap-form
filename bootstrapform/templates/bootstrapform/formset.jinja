@@ -1,15 +1,15 @@
+{% import 'bootstrapform/form.jinja' as bs_form %}
+
 {{ formset.management_form }}
 
 {% for form in formset %}
 
   {% if classes.label == 'sr-only' %}
-      <div class="form-inline">
+    <div class="form-inline">
   {% endif %}
-
-    {% include "bootstrapform/form.html" with form=form %}
-
+      {{ bs_form.render_orm(form) }}
   {% if classes.label == 'sr-only' %}
-     </div>
+    </div>
   {% endif %}
 
 {% endfor %}

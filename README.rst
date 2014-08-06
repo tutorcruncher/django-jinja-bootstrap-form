@@ -2,21 +2,7 @@
 Django bootstrap form
 =====================
 
-.. image:: https://badge.fury.io/py/django-bootstrap-form.png
-   :alt: PyPI version
-   :target: https://pypi.python.org/pypi/django-bootstrap-form
-
-.. image:: https://travis-ci.org/tzangms/django-bootstrap-form.png?branch=master   
-    :target: https://travis-ci.org/tzangms/django-bootstrap-form
-
-.. image:: https://coveralls.io/repos/tzangms/django-bootstrap-form/badge.png?branch=master  
-   :target: https://coveralls.io/r/tzangms/django-bootstrap-form?branch=master
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/tzangms/django-bootstrap-form/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
-   
+Port of `django-bootstrap-form <https://github.com/tzangms/django-bootstrap-form>` which is compatible with `django-jinja <https://github.com/tzangms/django-bootstrap-form>`.
 
 Twitter Bootstrap for Django Form.
 
