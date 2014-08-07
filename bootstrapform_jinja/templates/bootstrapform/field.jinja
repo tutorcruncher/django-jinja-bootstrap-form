@@ -27,7 +27,7 @@
       {% for choice in field %}
           <div class="radio">
               <label>
-                  {{ choice.tag }}
+                  {{ choice.tag()|safe }}
                   {{ choice.choice_label }}
               </label>
           </div>
@@ -65,24 +65,18 @@
   </div>
 {%- endmacro %}
 
-{% macro render_field(form, field, classes) -%}
-  <div class="form-group{% if field.errors %} has-error{% endif %}">
-    {% if field|is_checkbox %}
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+  {% if field|is_checkbox %}
 
-      {{ render_field_checkbox(form, field, classes) }}
+    {{ render_field_checkbox(form, field, classes) }}
 
-    {% elif field|is_radio %}
+  {% elif field|is_radio %}
 
-      {{ render_field_radio(form, field, classes) }}
+    {{ render_field_radio(form, field, classes) }}
 
-    {% else %}
+  {% else %}
 
-      {{ render_field_standard(form, field, classes) }}
+    {{ render_field_standard(form, field, classes) }}
 
-    {% endif %}
-  </div>
-{%- endmacro %}
-
-{% if form and field and classes %}
-  {{ render_field(form, field, classes) }}
-{% endif %}
+  {% endif %}
+</div>
