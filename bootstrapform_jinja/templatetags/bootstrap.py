@@ -79,6 +79,11 @@ def render(element, markup_classes):
     return mark_safe(template.render(context))
 
 @library.filter
+def bootstrap_classes(field):
+    add_input_classes(field)
+    return mark_safe(field)
+
+@library.filter
 def is_checkbox(field):
     return isinstance(field.field.widget, forms.CheckboxInput)
 
