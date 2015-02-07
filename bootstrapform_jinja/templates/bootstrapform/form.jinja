@@ -8,7 +8,7 @@
 {% endif %}
 
 {% for field in form.hidden_fields() %}
-    {{ field }}
+    {{ field|safe }}
 {% endfor %}
 
 {% for field in form.visible_fields() %}
