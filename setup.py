@@ -21,7 +21,7 @@ setup(
     author_email='s@muelcolvin.com',
     url='https://github.com/samuelcolvin/django-jinja-bootstrap-form',
     license='BSD',
-    test_suite='tests',
+    test_suite='runtests.runtests',
     install_requires = [
         "django>=1.4",
         "django-jinja>=1.0.3",
