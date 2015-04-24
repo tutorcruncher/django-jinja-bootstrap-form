@@ -39,7 +39,7 @@ TEMPLATE_DIRS = (
 )
 
 import django
-if django.get_version() == '1.8':
+if django.get_version().startswith('1.8'):
     TEMPLATES = [
         {
             'BACKEND': 'django_jinja.backend.Jinja2',
