@@ -2,28 +2,12 @@
 Django bootstrap forms for django-jinja
 =======================================
 
-Port of [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) which is compatible with [django-jinja](https://github.com/tzangms/django-bootstrap-form>).
+Port of [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) which is compatible with 
+[django-jinja](https://github.com/niwibe/django-jinja).
 
 Twitter Bootstrap for Django Forms.
 
-A simple Django template tag to work with [Bootstrap](http://getbootstrap.com/).
-
-Usage
-======
-
-Include in `INSTALLED_APPS`:
-
-    ...
-    'bootstrapform_jinja',
-    ...
-
-Then use it like this, simple.
-
-    {{ form|bootstrap }}
-
-Demo
-=====
-
-(This is a demo of the original project, not the Jinja varient.)
-
-Checkout this `Demo site <http://django-bootstrap-form.herokuapp.com/>`_ to see it in action. 
+See [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) for documentation. Usage should
+be the except except:
+* there's no need to `{% load bootstrap %}`  as template tags are preloaded in django-jinja.
+* add `bootstrapform_jinja` to `INSTALLED_APPS` not `bootstrapform`.

@@ -7,9 +7,8 @@ from os.path import dirname, abspath
 from django.conf import settings
 
 
-
 settings.configure(
-    DATABASES = {
+    DATABASES={
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': ':memory:'
@@ -21,9 +20,9 @@ settings.configure(
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.sites',
-        'bootstrapform',
+        'bootstrapform_jinja',
     ],
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE_CLASSES=(
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -35,7 +34,6 @@ settings.configure(
     DEBUG=False,
     ROOT_URLCONF='',
 )
-
 
 
 def runtests(**test_args):
