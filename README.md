@@ -10,7 +10,7 @@ Port of [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form
 
 Twitter Bootstrap for Django Forms.
 
-Supports Django 1.6, 1.7, 1.8.
+Supports Django 1.7, 1.8. Python 2.7, >=3.3.
 
 See [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) for documentation. Usage should
 be the same except:
