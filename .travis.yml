@@ -11,8 +11,8 @@ env:
   - DJANGO="django==1.7.10"
 
 install:
-  - pip install $DJANGO --use-mirrors
-  - pip install django-jinja==1.4.1 --use-mirrors
+  - pip install $DJANGO django-jinja==1.4.1 flake8
 
 script:
+  - flake8 --max-line-length 120 bootstrapform_jinja/
   - cd testing && python manage.py test
