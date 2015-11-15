@@ -7,8 +7,13 @@ python:
   - "2.7"
 
 env:
-  - DJANGO="django==1.8.6"
-  - DJANGO="django==1.7.10"
+  - DJANGO=django==1.8.6
+  - DJANGO=django==1.7.10
+
+matrix:
+  exclude:
+    - python: "3.5"
+      env: DJANGO=django==1.7.10
 
 install:
   - pip install $DJANGO django-jinja==1.4.1 flake8
