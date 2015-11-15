@@ -1,7 +1,6 @@
 {{ formset.management_form }}
 
 {% for form in formset %}
-
   {% if classes.label == 'sr-only' %}
     <div class="form-inline">
   {% endif %}
@@ -9,5 +8,4 @@
   {% if classes.label == 'sr-only' %}
     </div>
   {% endif %}
-
 {% endfor %}

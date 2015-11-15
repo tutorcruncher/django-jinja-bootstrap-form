@@ -15,5 +15,5 @@ class ExampleForm(forms.Form):
     multiple_checkbox = forms.MultipleChoiceField(choices=CHOICES, widget=forms.CheckboxSelectMultiple)
     file_fied = forms.FileField()
     password_field = forms.CharField(widget=forms.PasswordInput)
-    textarea = forms.CharField(widget=forms.Textarea)
+    textarea = forms.CharField(widget=forms.Textarea, required=True)
     boolean_field = forms.BooleanField()

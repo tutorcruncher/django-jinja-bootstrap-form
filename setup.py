@@ -32,6 +32,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
     ],
     keywords='bootstrap,django,jinja2',
     author='Samuel Colvin',
@@ -39,8 +40,8 @@ setup(
     url='https://github.com/samuelcolvin/django-jinja-bootstrap-form',
     license='BSD',
     install_requires=[
-        "django>=1.6",
-        "django-jinja>=1.3.3",
+        "django>=1.7",
+        "django-jinja>=1.4.1",
     ],
     packages=find_packages(),
     include_package_data=True,

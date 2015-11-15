@@ -1,37 +1,43 @@
 import os
-import django
 from django.test import TestCase, Client
 from django.conf import settings
 
+GEN_HTML = bool(os.getenv('GEN_HTML', False))
+
 
 class BootstrapJinjaTemplateTagTests(TestCase):
+    maxDiff = None
+
+    def _complare_html(self, r, file_name):
+        html_file = os.path.join(settings.BASE_DIR, 'fixtures', file_name)
+        if not os.path.exists(html_file) and GEN_HTML:
+            print('WARNING: file "%s" missing, generating it' % file_name)
+            with open(html_file, 'w') as f:
+                f.write(r.content.encode())
+            return
+        with open(html_file) as f:
+            content = f.read()
+
+        self.assertHTMLEqual(content, r.content.decode())
 
     def test_simple_form(self):
         client = Client()
         r = client.get('/simple_bs_form/')
-        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, '<div class="form-group">')
 
-        if django.get_version().startswith('1.6'):
-            # for some reason dj 1.6 renders this slightly differently, I can't be bothered to work out why.
-            self.assertContains(r, '<div class="form-group">')
-            return
-        html_file = os.path.join(settings.BASE_DIR, 'fixtures', 'basic.html')
-        with open(html_file) as f:
-            content = f.read()
-
-        self.assertHTMLEqual(r.content.decode('utf-8'), content)
+        self._complare_html(r, 'basic.html')
 
     def test_horizontal_form(self):
         client = Client()
         r = client.get('/horizontal_bs_form/')
-        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, '<div class="form-group">')
 
-        if django.get_version().startswith('1.6'):
-            # for some reason dj 1.6 renders this slightly differently, I can't be bothered to work out why.
-            self.assertContains(r, '<div class="form-group">')
-            return
-        html_file = os.path.join(settings.BASE_DIR, 'fixtures', 'horizontal.html')
-        with open(html_file) as f:
-            content = f.read()
+        self._complare_html(r, 'horizontal.html')
 
-        self.assertHTMLEqual(r.content.decode('utf-8'), content)
+    def test_partial_form(self):
+        client = Client()
+        r = client.get('/partial_bs_form/')
+        self.assertContains(r, '<div class="form-group">')
+
+        self._complare_html(r, 'partial.html')
+

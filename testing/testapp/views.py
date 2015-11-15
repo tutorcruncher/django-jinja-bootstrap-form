@@ -11,3 +11,8 @@ def simple_bs_form(request):
 def horizontal_bs_form(request):
     form = ExampleForm()
     return render_to_response('horizontal_bs_form.jinja', {'form': form})
+
+
+def partial_bs_form(request):
+    form = ExampleForm()
+    return render_to_response('partial_bs_form.jinja', {'form': form})

@@ -47,6 +47,8 @@ if django.get_version().startswith('1.8'):
             'DIRS': TEMPLATE_DIRS,
             'OPTIONS': {
                 'match_extension': '.jinja',
+                'trim_blocks': True,
+                'lstrip_blocks': True,
             }
         },
     ]
