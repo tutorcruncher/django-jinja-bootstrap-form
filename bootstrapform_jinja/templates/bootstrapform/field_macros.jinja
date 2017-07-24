@@ -61,7 +61,7 @@
   </div>
 {%- endmacro %}
 
-{% macro render(field) -%}
+{% macro render(form, field, classes) -%}
 <div class="form-group{% if field.errors %} has-error{% endif %}">
   {% if field|is_checkbox %}
     {{ render_field_checkbox(form, field, classes) }}
