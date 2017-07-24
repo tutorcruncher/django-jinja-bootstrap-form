@@ -1,4 +1,8 @@
 from django.forms import CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
+try:
+    from django.forms.boundfield import BoundField
+except ImportError:
+    from django.forms.forms import BoundField
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django_jinja import library
@@ -41,14 +45,18 @@ def add_input_classes(field):
 
 @library.filter
 def bootstrap(element):
-    markup_classes = {'label': '', 'value': '', 'single_value': ''}
-    return render(element, markup_classes)
+    """
+    Render field, form or formset with bootstrap styles
+    """
+    return render(element)
 
 
 @library.filter
 def bootstrap_inline(element):
-    markup_classes = {'label': 'sr-only', 'value': '', 'single_value': ''}
-    return render(element, markup_classes)
+    """
+    Render field, form or formset with bootstrap styles in single line
+    """
+    return render(element, {'label': 'sr-only'})
 
 
 @library.filter
@@ -84,33 +92,42 @@ def bootstrap_horizontal(element, label_cols={}):
     return render(element, markup_classes)
 
 
-def render(element, markup_classes):
-    element_type = element.__class__.__name__.lower()
+def render(element, markup_classes=None):
+    """
+    Internal render function used by boostrap filters
+    """
+    classes = {'label': '', 'value': '', 'single_value': ''}
+    if markup_classes:
+        classes.update(markup_classes)
 
-    if element_type == 'boundfield':
+    if isinstance(element, BoundField):
+        # InputField
         add_input_classes(element)
         template = get_template('bootstrapform/field.jinja')
-        context = {'field': element, 'form': element.form, 'classes': markup_classes}
-    else:
-        has_management = getattr(element, 'management_form', None)
-        if has_management:
-            for form in element.forms:
-                for field in form.visible_fields():
-                    add_input_classes(field)
-
-            template = get_template('bootstrapform/formset.jinja')
-            context = {'formset': element, 'classes': markup_classes}
-        else:
-            for field in element.visible_fields():
+        context = {'field': element, 'form': element.form, 'classes': classes}
+    elif getattr(element, 'management_form', None):
+        # FormSet
+        for form in element.forms:
+            for field in form.visible_fields():
                 add_input_classes(field)
 
-            template = get_template('bootstrapform/form.jinja')
-            context = {'form': element, 'classes': markup_classes}
+        template = get_template('bootstrapform/formset.jinja')
+        context = {'formset': element, 'classes': classes}
+    else:
+        # Form
+        for field in element.visible_fields():
+            add_input_classes(field)
+
+        template = get_template('bootstrapform/form.jinja')
+        context = {'form': element, 'classes': classes}
 
     return mark_safe(template.render(context))
 
 
 @library.filter
 def bootstrap_classes(field):
+    """
+    Filter that adds form-control to given input field
+    """
     add_input_classes(field)
     return mark_safe(field)
