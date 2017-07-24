@@ -1,9 +1,42 @@
-from django import forms
+from django.forms import CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
 from django.template.loader import get_template
-from django_jinja import library
 from django.utils.safestring import mark_safe
+from django_jinja import library
 
 from bootstrapform_jinja import config
+
+
+@library.test
+def checkbox_field(field):
+    """
+    Jinja test to check if a field is a checkbox
+    """
+    return isinstance(field.field.widget, CheckboxInput)
+
+
+@library.test
+def multiple_checkbox_field(field):
+    """
+    Jinja test to check if a field is a multiple value checkbox
+    """
+    return isinstance(field.field.widget, CheckboxSelectMultiple)
+
+
+@library.test
+def radio_field(field):
+    """
+    Jinja test to check if a field is a radio select
+    """
+    return isinstance(field.field.widget, RadioSelect)
+
+
+def add_input_classes(field):
+    """
+    Add form-control to class attribute of the widget of the given field.
+    """
+    if not isinstance(field.field.widget, (CheckboxInput, CheckboxSelectMultiple, RadioSelect, FileInput)):
+        attrs = field.field.widget.attrs
+        attrs['class'] = attrs.get('class', '') + ' form-control'
 
 
 @library.filter
@@ -51,13 +84,6 @@ def bootstrap_horizontal(element, label_cols={}):
     return render(element, markup_classes)
 
 
-def add_input_classes(field):
-    if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) and not is_file(field):
-        field_classes = field.field.widget.attrs.get('class', '')
-        field_classes += ' form-control'
-        field.field.widget.attrs['class'] = field_classes
-
-
 def render(element, markup_classes):
     element_type = element.__class__.__name__.lower()
 
@@ -88,23 +114,3 @@ def render(element, markup_classes):
 def bootstrap_classes(field):
     add_input_classes(field)
     return mark_safe(field)
-
-
-@library.filter
-def is_checkbox(field):
-    return isinstance(field.field.widget, forms.CheckboxInput)
-
-
-@library.filter
-def is_multiple_checkbox(field):
-    return isinstance(field.field.widget, forms.CheckboxSelectMultiple)
-
-
-@library.filter
-def is_radio(field):
-    return isinstance(field.field.widget, forms.RadioSelect)
-
-
-@library.filter
-def is_file(field):
-    return isinstance(field.field.widget, forms.FileInput)

@@ -20,7 +20,7 @@
 
 {% macro render_field_radio(form, field, classes) -%}
   {% if field.auto_id %}
-    <label class="control-label {{ classes.label }} {% if field.field.required %}{{ form.required_css_class or 'required' }}{% endif %}">{{ field.label }}</label>
+    <label class="control-label {{ classes.label }}{% if field.field.required %} {{ form.required_css_class or 'required' }}{% endif %}">{{ field.label }}</label>
   {% endif %}
   <div class="{{ classes.value }}">
     {% for choice in field %}
@@ -48,7 +48,7 @@
     <label class="control-label {{ classes.label }} {% if field.field.required %}{{ form.required_css_class or 'required' }}{% endif %}" for="{{ field.auto_id }}">{{ field.label }}</label>
   {% endif %}
 
-  <div class="{{ classes.value }} {% if field|is_multiple_checkbox %}multiple-checkbox{% endif %}">
+  <div class="{{ classes.value }}{% if field is multiple_checkbox_field %} multiple-checkbox{% endif %}">
     {{ field|safe }}
     {% for error in field.errors %}
       <span class="help-block {{ form.error_css_class or 'error-msg' }}">{{ error }}</span>
@@ -63,9 +63,9 @@
 
 {% macro render(form, field, classes) -%}
 <div class="form-group{% if field.errors %} has-error{% endif %}">
-  {% if field|is_checkbox %}
+  {% if field is checkbox_field %}
     {{ render_field_checkbox(form, field, classes) }}
-  {% elif field|is_radio %}
+  {% elif field is radio_field %}
     {{ render_field_radio(form, field, classes) }}
   {% else %}
     {{ render_field_standard(form, field, classes) }}
