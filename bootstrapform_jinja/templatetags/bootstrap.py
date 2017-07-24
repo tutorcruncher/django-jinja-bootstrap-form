@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.forms import CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
 try:
     from django.forms.boundfield import BoundField
@@ -7,7 +8,7 @@ from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django_jinja import library
 
-from bootstrapform_jinja import config
+from bootstrapform_jinja.config import BOOTSTRAP_COLUMN_COUNT
 
 
 @library.test
@@ -60,36 +61,46 @@ def bootstrap_inline(element):
 
 
 @library.filter
-def bootstrap_horizontal(element, label_cols={}):
+def bootstrap_horizontal(element, label_cols=None, max_columns=None):
+    """
+    Render field, form or formset with bootstrap styles in horizontal layout
+    """
     if not label_cols:
-        label_cols = 'col-sm-2 col-lg-2'
+        label_cols = ('col-sm-2', 'col-lg-2')
+    if isinstance(label_cols, str):
+        label_cols = label_cols.split()
+    # ensure that label_cols includes only strings and doesn't have duplicates
+    label_cols = tuple(OrderedDict.fromkeys(map(str, label_cols)).keys())
 
-    markup_classes = {
-        'label': label_cols,
-        'value': '',
-        'single_value': ''
-    }
+    if not max_columns:
+        max_columns = BOOTSTRAP_COLUMN_COUNT
 
-    for cl in label_cols.split(' '):
-        split_class = cl.split('-')
+    cls_value = []
+    cls_single_value = []
 
+    for cl in label_cols:
+        base, sep, value_nb_cols = cl.rpartition('-')
+        prefix = base + sep
         try:
-            value_nb_cols = int(split_class[-1])
+            value_nb_cols = int(value_nb_cols)
         except ValueError:
-            value_nb_cols = config.BOOTSTRAP_COLUMN_COUNT
+            value_nb_cols = max_columns
 
-        if value_nb_cols >= config.BOOTSTRAP_COLUMN_COUNT:
-            split_class[-1] = config.BOOTSTRAP_COLUMN_COUNT
+        if value_nb_cols >= max_columns:
+            split_class = prefix + str(max_columns)
         else:
-            offset_class = cl.split('-')
-            offset_class[-1] = 'offset-' + str(value_nb_cols)
-            split_class[-1] = str(config.BOOTSTRAP_COLUMN_COUNT - value_nb_cols)
-            markup_classes['single_value'] += ' ' + '-'.join(offset_class)
-            markup_classes['single_value'] += ' ' + '-'.join(split_class)
+            offset_class = prefix + 'offset-' + str(value_nb_cols)
+            split_class = prefix + str(max_columns - value_nb_cols)
+            cls_single_value.extend((split_class, offset_class))
 
-        markup_classes['value'] += ' ' + '-'.join(split_class)
+        cls_value.append(split_class)
 
-    return render(element, markup_classes)
+    classes = {
+        'label': ' '.join(label_cols),
+        'value': ' '.join(cls_value),
+        'single_value': ' '.join(cls_single_value),
+    }
+    return render(element, classes)
 
 
 def render(element, markup_classes=None):
