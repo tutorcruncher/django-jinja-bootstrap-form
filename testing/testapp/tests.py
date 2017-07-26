@@ -1,15 +1,23 @@
 import os
+from django import VERSION as DJANGO_VERSION
 from django.test import TestCase, Client
 from django.conf import settings
 
 GEN_HTML = bool(os.getenv('GEN_HTML', False))
+
+if DJANGO_VERSION >= (1, 11):
+    FIXTURES_DIR = 'fixtures_11'
+elif DJANGO_VERSION >= (1, 10):
+    FIXTURES_DIR = 'fixtures_10'
+else:
+    FIXTURES_DIR = 'fixtures'
 
 
 class BootstrapJinjaTemplateTagTests(TestCase):
     maxDiff = None
 
     def assertHTMLEqualToFixture(self, response, file_name):
-        html_file = os.path.join(settings.BASE_DIR, 'fixtures', file_name)
+        html_file = os.path.join(settings.BASE_DIR, FIXTURES_DIR, file_name)
         content = response.content.decode()
         if not os.path.exists(html_file) and GEN_HTML:
             print('WARNING: file "%s" missing, generating it' % file_name)
