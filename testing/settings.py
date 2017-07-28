@@ -32,27 +32,17 @@ DATABASES = {
     }
 }
 
-import django
-if django.VERSION >= (1, 8):
-    TEMPLATES = [
-        {
-            'BACKEND': 'django_jinja.backend.Jinja2',
-            'APP_DIRS': True,
-            'DIRS': (
-                os.path.join(BASE_DIR, 'templates'),
-            ),
-            'OPTIONS': {
-                'match_extension': '.jinja',
-                'trim_blocks': True,
-                'lstrip_blocks': True,
-            }
-        },
-    ]
-else:
-    TEMPLATE_DIRS = (
-        os.path.join(BASE_DIR, 'templates'),
-    )
-    TEMPLATE_LOADERS = (
-        'django_jinja.loaders.FileSystemLoader',
-        'django_jinja.loaders.AppLoader'
-    )
+TEMPLATES = [
+    {
+        'BACKEND': 'django_jinja.backend.Jinja2',
+        'APP_DIRS': True,
+        'DIRS': (
+            os.path.join(BASE_DIR, 'templates'),
+        ),
+        'OPTIONS': {
+            'match_extension': '.jinja',
+            'trim_blocks': True,
+            'lstrip_blocks': True,
+        }
+    },
+]

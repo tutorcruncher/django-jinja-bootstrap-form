@@ -11,11 +11,15 @@ env:
   - DJANGO=django==1.8.18
 
 install:
-  - pip install $DJANGO django-jinja==2.3.1 flake8
+  - pip install $DJANGO django-jinja==2.3.1 flake8 coverage
 
 script:
   - flake8 bootstrapform_jinja/
-  - cd testing && python manage.py test
+  - cd testing && coverage run --source=bootstrapform_jinja manage.py test && mv .coverage ..
+
+after_success:
+- ls -lha
+- bash <(curl -s https://codecov.io/bash)
 
 deploy:
 - provider: pypi
