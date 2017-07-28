@@ -11,7 +11,7 @@ env:
   - DJANGO=django==1.8.18
 
 install:
-  - pip install $DJANGO django-jinja=2.3.1 flake8
+  - pip install $DJANGO django-jinja==2.3.1 flake8
 
 script:
   - flake8 bootstrapform_jinja/
