@@ -1,5 +1,6 @@
-{% import 'bootstrapform/field_macros.jinja' as field_macros with context %}
-{% if form.non_field_errors() %}
+{% import 'bootstrapform/field_macros.jinja' as field_macros %}
+
+{%- if form.non_field_errors() %}
   <div class="alert alert-danger">
     <a class="close" data-dismiss="alert">&times;</a>
     {% for non_field_error in form.non_field_errors() %}
@@ -13,5 +14,5 @@
 {% endfor -%}
 
 {%- for field in form.visible_fields() %}
-  {{ field_macros.render(field) }}
+  {{ field_macros.render(form, field, classes) }}
 {% endfor %}

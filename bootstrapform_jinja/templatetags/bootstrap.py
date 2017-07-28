@@ -1,110 +1,144 @@
-from django import forms
+from collections import OrderedDict
+from django.forms import CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
+try:
+    from django.forms.boundfield import BoundField
+except ImportError:
+    from django.forms.forms import BoundField
 from django.template.loader import get_template
-from django_jinja import library
 from django.utils.safestring import mark_safe
+from django_jinja import library
 
-from bootstrapform_jinja import config
+from bootstrapform_jinja.config import BOOTSTRAP_COLUMN_COUNT
+
+
+@library.test
+def checkbox_field(field):
+    """
+    Jinja test to check if a field is a checkbox
+    """
+    return isinstance(field.field.widget, CheckboxInput)
+
+
+@library.test
+def multiple_checkbox_field(field):
+    """
+    Jinja test to check if a field is a multiple value checkbox
+    """
+    return isinstance(field.field.widget, CheckboxSelectMultiple)
+
+
+@library.test
+def radio_field(field):
+    """
+    Jinja test to check if a field is a radio select
+    """
+    return isinstance(field.field.widget, RadioSelect)
+
+
+def add_input_classes(field):
+    """
+    Add form-control to class attribute of the widget of the given field.
+    """
+    if not isinstance(field.field.widget, (CheckboxInput, CheckboxSelectMultiple, RadioSelect, FileInput)):
+        attrs = field.field.widget.attrs
+        attrs['class'] = attrs.get('class', '') + ' form-control'
 
 
 @library.filter
 def bootstrap(element):
-    markup_classes = {'label': '', 'value': '', 'single_value': ''}
-    return render(element, markup_classes)
+    """
+    Render field, form or formset with bootstrap styles
+    """
+    return render(element)
 
 
 @library.filter
 def bootstrap_inline(element):
-    markup_classes = {'label': 'sr-only', 'value': '', 'single_value': ''}
-    return render(element, markup_classes)
+    """
+    Render field, form or formset with bootstrap styles in single line
+    """
+    return render(element, {'label': 'sr-only'})
 
 
 @library.filter
-def bootstrap_horizontal(element, label_cols={}):
+def bootstrap_horizontal(element, label_cols=None, max_columns=None):
+    """
+    Render field, form or formset with bootstrap styles in horizontal layout
+    """
     if not label_cols:
-        label_cols = 'col-sm-2 col-lg-2'
+        label_cols = ('col-sm-2', 'col-lg-2')
+    if isinstance(label_cols, str):
+        label_cols = label_cols.split()
+    # ensure that label_cols includes only strings and doesn't have duplicates
+    label_cols = tuple(OrderedDict.fromkeys(map(str, label_cols)).keys())
 
-    markup_classes = {
-        'label': label_cols,
-        'value': '',
-        'single_value': ''
-    }
+    if not max_columns:
+        max_columns = BOOTSTRAP_COLUMN_COUNT
 
-    for cl in label_cols.split(' '):
-        split_class = cl.split('-')
+    cls_value = []
+    cls_single_value = []
 
+    for cl in label_cols:
+        base, sep, value_nb_cols = cl.rpartition('-')
+        prefix = base + sep
         try:
-            value_nb_cols = int(split_class[-1])
+            value_nb_cols = int(value_nb_cols)
         except ValueError:
-            value_nb_cols = config.BOOTSTRAP_COLUMN_COUNT
+            value_nb_cols = max_columns
 
-        if value_nb_cols >= config.BOOTSTRAP_COLUMN_COUNT:
-            split_class[-1] = config.BOOTSTRAP_COLUMN_COUNT
+        if value_nb_cols >= max_columns:
+            split_class = prefix + str(max_columns)
         else:
-            offset_class = cl.split('-')
-            offset_class[-1] = 'offset-' + str(value_nb_cols)
-            split_class[-1] = str(config.BOOTSTRAP_COLUMN_COUNT - value_nb_cols)
-            markup_classes['single_value'] += ' ' + '-'.join(offset_class)
-            markup_classes['single_value'] += ' ' + '-'.join(split_class)
+            offset_class = prefix + 'offset-' + str(value_nb_cols)
+            split_class = prefix + str(max_columns - value_nb_cols)
+            cls_single_value.extend((split_class, offset_class))
 
-        markup_classes['value'] += ' ' + '-'.join(split_class)
+        cls_value.append(split_class)
 
-    return render(element, markup_classes)
-
-
-def add_input_classes(field):
-    if not is_checkbox(field) and not is_multiple_checkbox(field) and not is_radio(field) and not is_file(field):
-        field_classes = field.field.widget.attrs.get('class', '')
-        field_classes += ' form-control'
-        field.field.widget.attrs['class'] = field_classes
+    classes = {
+        'label': ' '.join(label_cols),
+        'value': ' '.join(cls_value),
+        'single_value': ' '.join(cls_single_value),
+    }
+    return render(element, classes)
 
 
-def render(element, markup_classes):
-    element_type = element.__class__.__name__.lower()
+def render(element, markup_classes=None):
+    """
+    Internal render function used by boostrap filters
+    """
+    classes = {'label': '', 'value': '', 'single_value': ''}
+    if markup_classes:
+        classes.update(markup_classes)
 
-    if element_type == 'boundfield':
+    if isinstance(element, BoundField):
+        # InputField
         add_input_classes(element)
         template = get_template('bootstrapform/field.jinja')
-        context = {'field': element, 'form': element.form, 'classes': markup_classes}
-    else:
-        has_management = getattr(element, 'management_form', None)
-        if has_management:
-            for form in element.forms:
-                for field in form.visible_fields():
-                    add_input_classes(field)
-
-            template = get_template('bootstrapform/formset.jinja')
-            context = {'formset': element, 'classes': markup_classes}
-        else:
-            for field in element.visible_fields():
+        context = {'field': element, 'form': element.form, 'classes': classes}
+    elif getattr(element, 'management_form', None):
+        # FormSet
+        for form in element.forms:
+            for field in form.visible_fields():
                 add_input_classes(field)
 
-            template = get_template('bootstrapform/form.jinja')
-            context = {'form': element, 'classes': markup_classes}
+        template = get_template('bootstrapform/formset.jinja')
+        context = {'formset': element, 'classes': classes}
+    else:
+        # Form
+        for field in element.visible_fields():
+            add_input_classes(field)
+
+        template = get_template('bootstrapform/form.jinja')
+        context = {'form': element, 'classes': classes}
 
     return mark_safe(template.render(context))
 
 
 @library.filter
 def bootstrap_classes(field):
+    """
+    Filter that adds form-control to given input field
+    """
     add_input_classes(field)
     return mark_safe(field)
-
-
-@library.filter
-def is_checkbox(field):
-    return isinstance(field.field.widget, forms.CheckboxInput)
-
-
-@library.filter
-def is_multiple_checkbox(field):
-    return isinstance(field.field.widget, forms.CheckboxSelectMultiple)
-
-
-@library.filter
-def is_radio(field):
-    return isinstance(field.field.widget, forms.RadioSelect)
-
-
-@library.filter
-def is_file(field):
-    return isinstance(field.field.widget, forms.FileInput)

@@ -7,16 +7,26 @@ python:
   - "2.7"
 
 env:
-  - DJANGO=django==1.8.6
-  - DJANGO=django==1.7.10
+  - DJANGO=django==1.11.3 DJANGO_JINJA=django-jinja==2.3.0
+  - DJANGO=django==1.10.7 DJANGO_JINJA=django-jinja==2.2.1
+  - DJANGO=django==1.9.13 DJANGO_JINJA=django-jinja==2.2.1
+  - DJANGO=django==1.8.18 DJANGO_JINJA=django-jinja==2.1.2
+  - DJANGO=django==1.8.18 DJANGO_JINJA=django-jinja==1.4.2
+  - DJANGO=django==1.7.11 DJANGO_JINJA=django-jinja==1.4.2
 
 matrix:
   exclude:
     - python: "3.5"
-      env: DJANGO=django==1.7.10
+      env: DJANGO=django==1.7.11 DJANGO_JINJA=django-jinja==1.4.2
+    - python: "3.3"
+      env: DJANGO=django==1.11.3 DJANGO_JINJA=django-jinja==2.3.0
+    - python: "3.3"
+      env: DJANGO=django==1.10.7 DJANGO_JINJA=django-jinja==2.2.1
+    - python: "3.3"
+      env: DJANGO=django==1.9.13 DJANGO_JINJA=django-jinja==2.2.1
 
 install:
-  - pip install $DJANGO django-jinja==1.4.1 flake8
+  - pip install $DJANGO $DJANGO_JINJA flake8
 
 script:
   - flake8 --max-line-length 120 bootstrapform_jinja/

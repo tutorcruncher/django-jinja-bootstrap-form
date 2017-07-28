@@ -10,8 +10,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django_jinja',
     'bootstrapform_jinja',
 )
@@ -34,17 +32,15 @@ DATABASES = {
     }
 }
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-
 import django
-if django.get_version().startswith('1.8'):
+if django.VERSION >= (1, 8):
     TEMPLATES = [
         {
             'BACKEND': 'django_jinja.backend.Jinja2',
             'APP_DIRS': True,
-            'DIRS': TEMPLATE_DIRS,
+            'DIRS': (
+                os.path.join(BASE_DIR, 'templates'),
+            ),
             'OPTIONS': {
                 'match_extension': '.jinja',
                 'trim_blocks': True,
@@ -53,6 +49,9 @@ if django.get_version().startswith('1.8'):
         },
     ]
 else:
+    TEMPLATE_DIRS = (
+        os.path.join(BASE_DIR, 'templates'),
+    )
     TEMPLATE_LOADERS = (
         'django_jinja.loaders.FileSystemLoader',
         'django_jinja.loaders.AppLoader'
