@@ -1,7 +1,7 @@
 Django bootstrap forms for django-jinja
 =======================================
 
-[![Build Status](https://travis-ci.org/samuelcolvin/django-jinja-bootstrap-form.svg?branch=master&style=flat)](https://travis-ci.org/samuelcolvin/django-jinja-bootstrap-form)
+[![Build Status](https://travis-ci.org/tutorcruncher/django-jinja-bootstrap-form.svg?branch=master&style=flat)](https://travis-ci.org/tutorcruncher/django-jinja-bootstrap-form)
 [![PyPI Status](https://img.shields.io/pypi/v/django-jinja-bootstrap-form.svg?style=flat)](https://pypi.python.org/pypi/django-jinja-bootstrap-form)
 
 Port of [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) which is compatible with 

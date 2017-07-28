@@ -1,33 +1,29 @@
 language: python
 
 python:
-  - "3.5"
-  - "3.4"
-  - "3.3"
-  - "2.7"
+  - '3.5'
+  - '3.6'
 
 env:
-  - DJANGO=django==1.11.3 DJANGO_JINJA=django-jinja==2.3.0
-  - DJANGO=django==1.10.7 DJANGO_JINJA=django-jinja==2.2.1
-  - DJANGO=django==1.9.13 DJANGO_JINJA=django-jinja==2.2.1
-  - DJANGO=django==1.8.18 DJANGO_JINJA=django-jinja==2.1.2
-  - DJANGO=django==1.8.18 DJANGO_JINJA=django-jinja==1.4.2
-  - DJANGO=django==1.7.11 DJANGO_JINJA=django-jinja==1.4.2
-
-matrix:
-  exclude:
-    - python: "3.5"
-      env: DJANGO=django==1.7.11 DJANGO_JINJA=django-jinja==1.4.2
-    - python: "3.3"
-      env: DJANGO=django==1.11.3 DJANGO_JINJA=django-jinja==2.3.0
-    - python: "3.3"
-      env: DJANGO=django==1.10.7 DJANGO_JINJA=django-jinja==2.2.1
-    - python: "3.3"
-      env: DJANGO=django==1.9.13 DJANGO_JINJA=django-jinja==2.2.1
+  - DJANGO=django==1.11.3
+  - DJANGO=django==1.10.7
+  - DJANGO=django==1.9.13
+  - DJANGO=django==1.8.18
 
 install:
-  - pip install $DJANGO $DJANGO_JINJA flake8
+  - pip install $DJANGO django-jinja=2.3.1 flake8
 
 script:
-  - flake8 --max-line-length 120 bootstrapform_jinja/
+  - flake8 bootstrapform_jinja/
   - cd testing && python manage.py test
+
+deploy:
+- provider: pypi
+  user: samuelcolvin
+  password:
+    secure: "GXRbfsFFsonr3FI4ovN15WQB+2+S3A0WGnK8dkZ9jiAkGerxlRkhgL7fBk/2/TKZrawm9aIAcsJUMbvVrJKjkcvOBMZF1TH0B85ZZgkO7rkdX0SLvmhjPF3maNuj5kR+37QF9l4+2cJzOenQnaVbFzRwo/y3VaapU/cy0X15DDk="
+  distributions: sdist bdist_wheel
+  skip_upload_docs: true
+  on:
+    tags: true
+    python: 3.6
