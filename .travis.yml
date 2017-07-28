@@ -15,10 +15,10 @@ install:
 
 script:
   - flake8 bootstrapform_jinja/
-  - cd testing && coverage run --source=bootstrapform_jinja manage.py test && mv .coverage ..
+  - cd testing && coverage run --source=bootstrapform_jinja manage.py test && mv .coverage .. && cd ..
 
 after_success:
-- ls -lha
+- pwd && ls -lha
 - bash <(curl -s https://codecov.io/bash)
 
 deploy:
@@ -31,3 +31,4 @@ deploy:
   on:
     tags: true
     python: 3.6
+    condition: $DJANGO = django==1.11.3
