@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from bootstrapform_jinja.meta import VERSION
 
 description = """
@@ -17,6 +17,13 @@ To install:
     pip install django-jinja-bootstrap-form
 """
 
+template_files = [
+    'templates/bootstrapform/field.jinja',
+    'templates/bootstrapform/field_macros.jinja',
+    'templates/bootstrapform/form.jinja',
+    'templates/bootstrapform/formset.jinja',
+]
+
 setup(
     name='django-jinja-bootstrap-form',
     version=str(VERSION),
@@ -28,8 +35,9 @@ setup(
         'Framework :: Django',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     keywords='bootstrap,django,jinja2',
     author='Samuel Colvin',
@@ -40,7 +48,8 @@ setup(
         'django>=1.9',
         'django-jinja>=2.3.1',
     ],
-    packages=find_packages(),
-    include_package_data=True,
-    zip_safe=False,
+    packages=['bootstrapform_jinja'],
+    package_data={'bootstrapform_jinja': template_files},
+    python_requires='>=3.6',
+    zip_safe=True,
 )
