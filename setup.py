@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from bootstrapform_jinja.meta import VERSION
 
 description = """
@@ -48,7 +48,7 @@ setup(
         'django>=1.9',
         'django-jinja>=2.3.1',
     ],
-    packages=['bootstrapform_jinja'],
+    packages=find_packages(),
     package_data={'bootstrapform_jinja': template_files},
     python_requires='>=3.6',
     zip_safe=True,
