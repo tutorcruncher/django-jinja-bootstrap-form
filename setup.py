@@ -50,6 +50,6 @@ setup(
     ],
     packages=find_packages(),
     package_data={'bootstrapform_jinja': template_files},
-    python_requires='>=3.6',
+    python_requires='>=3.5',
     zip_safe=True,
 )
