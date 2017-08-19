@@ -1,4 +1,4 @@
 from distutils.version import StrictVersion
 
 # start from a fresh number 4 to identify jinja verison
-VERSION = StrictVersion('4.2.2')
+VERSION = StrictVersion('4.2.3')
