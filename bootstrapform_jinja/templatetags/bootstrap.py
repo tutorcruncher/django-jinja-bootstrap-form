@@ -1,6 +1,5 @@
 from collections import OrderedDict
-from django.forms import CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
-from django.forms.forms import BoundField
+from django.forms import BoundField, CheckboxInput, CheckboxSelectMultiple, FileInput, RadioSelect
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django_jinja import library

@@ -1,17 +1,13 @@
 language: python
 
 python:
-  - '3.5'
-  - '3.6'
+  - '3.8'
 
 env:
-  - DJANGO=django==1.11.3
-  - DJANGO=django==1.10.7
-  - DJANGO=django==1.9.13
-  - DJANGO=django==1.8.18
+  - DJANGO=django==3.1
 
 install:
-  - pip install $DJANGO django-jinja==2.3.1 flake8 coverage
+  - pip install django django-jinja flake8 coverage
 
 script:
   - flake8 bootstrapform_jinja/
@@ -30,5 +26,5 @@ deploy:
   skip_upload_docs: true
   on:
     tags: true
-    python: 3.6
-    condition: $DJANGO = django==1.11.3
+    python: 3.8
+    condition: $DJANGO = django==3.1
