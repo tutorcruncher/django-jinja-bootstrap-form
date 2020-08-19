@@ -1,0 +1,26 @@
+name: Tests
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies
+        run: pip install django django-jinja flake8 coverage
+
+      - name: Flake8
+        run: flake8 bootstrapform_jinja/
+
+      - name: Tests
+        run: cd testing && coverage run --source=bootstrapform_jinja manage.py test && mv .coverage .. && cd ..
+
+      - name: Codecov
+        run: pwd && ls -lha && bash <(curl -s https://codecov.io/bash)
+
