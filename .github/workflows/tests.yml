@@ -13,17 +13,13 @@ jobs:
           python-version: 3.8
 
       - name: Install Dependencies
-        run: pip install django django-jinja flake8 coverage
+        run: make install
 
-      - name: Flake8
-        run: flake8 bootstrapform_jinja/
+      - name: Lint
+        run: make lint
 
       - name: Tests
-        run: |
-          cd testing
-          coverage run --source=bootstrapform_jinja manage.py test
-          mv .coverage ..
-          cd ..
+        run: make test
 
       - name: Codecov
-        run: pwd && ls -lha && bash <(curl -s https://codecov.io/bash)
+        run: make codecov

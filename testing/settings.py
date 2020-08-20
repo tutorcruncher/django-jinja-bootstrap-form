@@ -1,4 +1,5 @@
 import os
+
 BASE_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = 'django-jinja-bootstrap-form'
@@ -25,24 +26,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'testapp.urls'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
-    }
-}
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}}
 
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
         'APP_DIRS': True,
-        'DIRS': (
-            os.path.join(BASE_DIR, 'templates'),
-        ),
-        'OPTIONS': {
-            'match_extension': '.jinja',
-            'trim_blocks': True,
-            'lstrip_blocks': True,
-        }
+        'DIRS': (os.path.join(BASE_DIR, 'templates'),),
+        'OPTIONS': {'match_extension': '.jinja', 'trim_blocks': True, 'lstrip_blocks': True},
     },
 ]
