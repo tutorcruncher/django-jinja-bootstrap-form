@@ -1,7 +1,7 @@
 Django bootstrap forms for django-jinja
 =======================================
 
-[![Build Status](https://travis-ci.org/tutorcruncher/django-jinja-bootstrap-form.svg?branch=master&style=flat)](https://travis-ci.org/tutorcruncher/django-jinja-bootstrap-form)
+[![Build Status](https://github.com/tutorcruncher/django-jinja-bootstrap-form/workflows/Jekyll%20site%20CI/badge.svg)](https://github.com/tutorcruncher/django-jinja-bootstrap-form/actions)
 [![PyPI Status](https://img.shields.io/pypi/v/django-jinja-bootstrap-form.svg?style=flat)](https://pypi.python.org/pypi/django-jinja-bootstrap-form)
 [![codecov](https://codecov.io/gh/tutorcruncher/django-jinja-bootstrap-form/branch/master/graph/badge.svg)](https://codecov.io/gh/tutorcruncher/django-jinja-bootstrap-form)
 
