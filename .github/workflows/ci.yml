@@ -1,14 +1,14 @@
 name: Tests
-on: pull_request
+on: push
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: 3.8
 
@@ -19,7 +19,11 @@ jobs:
         run: flake8 bootstrapform_jinja/
 
       - name: Tests
-        run: cd testing && coverage run --source=bootstrapform_jinja manage.py test && mv .coverage .. && cd ..
+        run: |
+          cd testing
+          coverage run --source=bootstrapform_jinja manage.py test
+          mv .coverage ..
+          cd ..
 
       - name: Codecov
         run: pwd && ls -lha && bash <(curl -s https://codecov.io/bash)
