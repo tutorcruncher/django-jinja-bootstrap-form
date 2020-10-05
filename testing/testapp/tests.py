@@ -46,4 +46,3 @@ class BootstrapJinjaTemplateTagTests(TestCase):
         response = client.get('/partial_bs_form/')
         self.assertContains(response, '<div class="form-group">', status_code=200)
         self.assertHTMLEqualToFixture(response, 'partial.html')
-
