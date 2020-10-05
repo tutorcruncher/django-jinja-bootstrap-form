@@ -7,7 +7,6 @@ SECRET_KEY = 'django-jinja-bootstrap-form'
 TEMPLATE_DEBUG = DEBUG = False
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
