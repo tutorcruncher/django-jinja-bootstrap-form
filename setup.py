@@ -44,7 +44,7 @@ setup(
     url='https://github.com/tutorcruncher/django-jinja-bootstrap-form',
     license='BSD',
     install_requires=[
-        'django>=3.1',
+        'django>=3',
         'django-jinja>=2.6.0',
     ],
     packages=find_packages(),
