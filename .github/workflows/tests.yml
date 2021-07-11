@@ -20,6 +20,7 @@ jobs:
 
       - name: Lint
         run: make lint
+        if: ${{ matrix.python-version }} == '3.8' # Don't need to lint every one
 
       - name: Tests
         run: make test
