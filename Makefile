@@ -15,7 +15,7 @@ lint:
 
 .PHONY: test
 test:
-	coverage run --source=bootstrapform_jinja testing/manage.py test
+	coverage run --source=bootstrapform_jinja testing/manage.py test testapp
 
 .PHONY: codecov
 codecov:
