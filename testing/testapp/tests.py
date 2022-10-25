@@ -7,7 +7,8 @@ GEN_HTML = bool(os.getenv('GEN_HTML', False))
 
 if DJANGO_VERSION >= (4, 0):
     FIXTURES_DIR = 'fixtures_40'
-elif DJANGO_VERSION >= (3, 0):
+else:
+    assert DJANGO_VERSION >= (3, 0)
     FIXTURES_DIR = 'fixtures_30'
 
 
