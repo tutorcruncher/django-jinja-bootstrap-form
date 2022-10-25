@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from bootstrapform_jinja.meta import VERSION
+from bootstrapform_jinja.version import VERSION
 
 description = """
 django-jinja-bootstrap-form
