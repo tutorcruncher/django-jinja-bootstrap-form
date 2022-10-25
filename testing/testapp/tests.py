@@ -9,12 +9,6 @@ if DJANGO_VERSION >= (4, 0):
     FIXTURES_DIR = 'fixtures_40'
 elif DJANGO_VERSION >= (3, 0):
     FIXTURES_DIR = 'fixtures_30'
-elif DJANGO_VERSION >= (1, 11):
-    FIXTURES_DIR = 'fixtures_11'
-elif DJANGO_VERSION >= (1, 10):
-    FIXTURES_DIR = 'fixtures_10'
-else:
-    FIXTURES_DIR = 'fixtures'
 
 
 class BootstrapJinjaTemplateTagTests(TestCase):
