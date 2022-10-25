@@ -1,18 +1,22 @@
+
   <div class="form-group">
         <label class="control-label  required" for="id_char_field">Char field</label>
 
   <div class="">
-    <input class=" form-control" id="id_char_field" name="char_field" type="text" />
+    <input type="text" name="char_field" class=" form-control" required id="id_char_field">
   </div>
 </div>
   <div class="form-group">
         <label class="control-label  required" for="id_choice_field">Choice field</label>
 
   <div class="">
-    <select class=" form-control" id="id_choice_field" name="choice_field">
-<option value="0">Zero</option>
-<option value="1">One</option>
-<option value="2">Two</option>
+    <select name="choice_field" class=" form-control" id="id_choice_field">
+  <option value="0">Zero</option>
+
+  <option value="1">One</option>
+
+  <option value="2">Two</option>
+
 </select>
   </div>
 </div>
@@ -21,19 +25,19 @@
   <div class="">
       <div class="radio">
         <label>
-          <input id="id_radio_choice_0" name="radio_choice" type="radio" value="0" />
+          <input type="radio" name="radio_choice" value="0" id="id_radio_choice_0" required>
           Zero
         </label>
       </div>
       <div class="radio">
         <label>
-          <input id="id_radio_choice_1" name="radio_choice" type="radio" value="1" />
+          <input type="radio" name="radio_choice" value="1" id="id_radio_choice_1" required>
           One
         </label>
       </div>
       <div class="radio">
         <label>
-          <input id="id_radio_choice_2" name="radio_choice" type="radio" value="2" />
+          <input type="radio" name="radio_choice" value="2" id="id_radio_choice_2" required>
           Two
         </label>
       </div>
@@ -44,41 +48,59 @@
         <label class="control-label  required" for="id_multiple_choice">Multiple choice</label>
 
   <div class="">
-    <select multiple="multiple" class=" form-control" id="id_multiple_choice" name="multiple_choice">
-<option value="0">Zero</option>
-<option value="1">One</option>
-<option value="2">Two</option>
+    <select name="multiple_choice" class=" form-control" required id="id_multiple_choice" multiple>
+  <option value="0">Zero</option>
+
+  <option value="1">One</option>
+
+  <option value="2">Two</option>
+
 </select>
   </div>
 </div>
   <div class="form-group">
-        <label class="control-label  required" for="id_multiple_checkbox">Multiple checkbox</label>
+        <label class="control-label  required">Multiple checkbox</label>
+  <div class="">
+      <div class="radio">
+        <label>
+          <input type="checkbox" name="multiple_checkbox" value="0" id="id_multiple_checkbox_0">
+          Zero
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="checkbox" name="multiple_checkbox" value="1" id="id_multiple_checkbox_1">
+          One
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="checkbox" name="multiple_checkbox" value="2" id="id_multiple_checkbox_2">
+          Two
+        </label>
+      </div>
 
-  <div class=" multiple-checkbox">
-    <ul id="id_multiple_checkbox"><li><label for="id_multiple_checkbox_0"><input id="id_multiple_checkbox_0" name="multiple_checkbox" type="checkbox" value="0" /> Zero</label></li>
-<li><label for="id_multiple_checkbox_1"><input id="id_multiple_checkbox_1" name="multiple_checkbox" type="checkbox" value="1" /> One</label></li>
-<li><label for="id_multiple_checkbox_2"><input id="id_multiple_checkbox_2" name="multiple_checkbox" type="checkbox" value="2" /> Two</label></li></ul>
   </div>
 </div>
   <div class="form-group">
         <label class="control-label  required" for="id_file_fied">File fied</label>
 
   <div class="">
-    <input id="id_file_fied" name="file_fied" type="file" />
+    <input type="file" name="file_fied" required id="id_file_fied">
   </div>
 </div>
   <div class="form-group">
         <label class="control-label  required" for="id_password_field">Password field</label>
 
   <div class="">
-    <input class=" form-control" id="id_password_field" name="password_field" type="password" />
+    <input type="password" name="password_field" class=" form-control" required id="id_password_field">
   </div>
 </div>
   <div class="form-group">
         <label class="control-label  required" for="id_textarea">Textarea</label>
 
   <div class="">
-    <textarea class=" form-control" cols="40" id="id_textarea" name="textarea" rows="10">
+    <textarea name="textarea" cols="40" rows="10" class=" form-control" required id="id_textarea">
 </textarea>
   </div>
 </div>
@@ -86,7 +108,7 @@
     <div class="">
     <div class="checkbox">
         <label class="required">
-          <input id="id_boolean_field" name="boolean_field" type="checkbox" /> <span>Boolean field</span>
+          <input type="checkbox" name="boolean_field" required id="id_boolean_field"> <span>Boolean field</span>
         </label>
     </div>
   </div>

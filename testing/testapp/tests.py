@@ -1,16 +1,10 @@
 import os
-from django import VERSION as DJANGO_VERSION
 from django.test import TestCase, Client
 from django.conf import settings
 
 GEN_HTML = bool(os.getenv('GEN_HTML', False))
 
-if DJANGO_VERSION >= (1, 11):
-    FIXTURES_DIR = 'fixtures_11'
-elif DJANGO_VERSION >= (1, 10):
-    FIXTURES_DIR = 'fixtures_10'
-else:
-    FIXTURES_DIR = 'fixtures'
+FIXTURES_DIR = 'fixtures'
 
 
 class BootstrapJinjaTemplateTagTests(TestCase):
