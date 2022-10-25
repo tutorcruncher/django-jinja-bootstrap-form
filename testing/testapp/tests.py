@@ -1,10 +1,15 @@
 import os
+from django import VERSION as DJANGO_VERSION
 from django.test import TestCase, Client
 from django.conf import settings
 
 GEN_HTML = bool(os.getenv('GEN_HTML', False))
 
-FIXTURES_DIR = 'fixtures'
+if DJANGO_VERSION >= (4, 0):
+    FIXTURES_DIR = 'fixtures_40'
+else:
+    assert DJANGO_VERSION >= (3, 0)
+    FIXTURES_DIR = 'fixtures_30'
 
 
 class BootstrapJinjaTemplateTagTests(TestCase):

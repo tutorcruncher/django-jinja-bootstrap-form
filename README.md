@@ -12,7 +12,7 @@ Twitter Bootstrap for Django Forms.
 
 **django-jinja-bootstrap-form** has been used in production for 6 months and is stable.
 
-Supports Django >=3.2. Python >=3.5.
+Supports Django >=3.2. Python >=3.6.
 
 See [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form) for documentation. Usage should
 be the same except:

@@ -1,4 +1,4 @@
-black = black -S -l 120 --target-version py38
+black = black -S -l 120
 
 .PHONY: install
 install:
